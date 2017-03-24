@@ -3,13 +3,22 @@
   "version": "0.0.0",
   "description": "Sina Weibo HTML5 client",
   "scripts": {
-    "app": "electron ."
+    "app": "electron .",
+    "pack": "build --dir",
+    "dist": "build"
   },
+  "author": {
+    "name": "Randy",
+    "email": "randypriv@gmail.com"
+  },
+  "postinstall": "install-app-deps",
   "devDependencies": {
-    "electron": "^1.6.2"
+    "electron": "^1.6.2",
+    "electron-builder": "^16.2.1"
   },
   "dependencies": {
     "axios": "^0.15.3",
     "electron-config": "^0.2.1"
-  }
+  },
+  "license": "MIT"
 }

@@ -1,6 +1,7 @@
 const { app, Menu, BrowserWindow, shell } = require('electron')
 const appName = app.getName();
 const path = require('path')
+const os = require('os')
 
 const getMainWindow = () => {
   return BrowserWindow.getAllWindows()[0]
@@ -31,13 +32,13 @@ const darwinTpl = [
           {
             label: 'Edit CSS',
             click() {
-              shell.openItem(path.join(app.getAppPath(), 'custom.css'))
+              shell.showItemInFolder(path.join(app.getAppPath(), 'custom.css'))
             }
           },
           {
             label: 'Edit JS',
             click() {
-              shell.openItem(path.join(app.getAppPath(), 'custom.js'))
+              shell.showItemInFolder(path.join(app.getAppPath(), 'custom.js'))
             }
           }
         ]
@@ -145,23 +146,6 @@ const darwinTpl = [
         type: 'separator'
       },
       {
-        label: 'Next Tab',
-        accelerator: 'Ctrl+Tab',
-        click() {
-          // sendAction('next-tab');
-        }
-      },
-      {
-        label: 'Previous Tab',
-        accelerator: 'Ctrl+Shift+Tab',
-        click() {
-          // sendAction('previous-tab');
-        }
-      },
-      {
-        type: 'separator'
-      },
-      {
         role: 'front'
       },
       {
@@ -171,7 +155,27 @@ const darwinTpl = [
   },
   {
     role: 'help',
-    // submenu: helpSubmenu
+    submenu: [
+      {
+        label: 'Source on Github',
+        click() {
+          shell.openExternal('https://github.com/djyde/sinatine')
+        }
+      },
+      {
+        label: 'Report an issue...',
+        click() {
+          const body = `
+<!-- Please succinctly describe your issue and steps to reproduce it. -->
+-
+${app.getName()} ${app.getVersion()}
+Electron ${process.versions.electron}
+${process.platform} ${process.arch} ${os.release()}`;
+
+          shell.openExternal(`https://github.com/djyde/sinatine/issues/new?body=${encodeURIComponent(body)}`);
+        }
+      }
+    ]
   }
 ];
 
