@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Sina Weibo HTML5 client",
   "scripts": {
-    "app": "ENV=dev electron .",
+    "app": "ENV=dev electron app/",
     "pack": "build --dir",
     "dist": "build"
   },
@@ -15,10 +15,6 @@
   "devDependencies": {
     "electron": "^1.6.2",
     "electron-builder": "^16.2.1"
-  },
-  "dependencies": {
-    "axios": "^0.15.3",
-    "electron-config": "^0.2.1"
   },
   "license": "MIT"
 }

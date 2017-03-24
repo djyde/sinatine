@@ -1,0 +1,14 @@
+{
+  "name": "sinatine",
+  "version": "0.0.1",
+  "description": "Sina Weibo HTML5 client",
+  "dependencies": {
+    "electron-config": "^0.2.1",
+    "electron-context-menu": "^0.8.0"
+  },
+  "author": {
+    "name": "Randy",
+    "email": "randypriv@gmail.com"
+  },
+  "license": "MIT"
+}
