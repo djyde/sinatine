@@ -1,0 +1,11 @@
+{
+  "name": "sinatine",
+  "version": "0.0.0",
+  "description": "Sina Weibo HTML5 client",
+  "scripts": {
+    "app": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^1.6.2"
+  }
+}
