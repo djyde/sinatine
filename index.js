@@ -1,15 +1,11 @@
 const path = require('path');
 const fs = require('fs');
-const electron = require('electron');
+const { app, BrowserWindow, Menu, shell, globalShortcut } = require('electron')
 const http = require('http')
 const axios = require('axios')
 const config = require('./config')
 const appMenu = require('./menu');
 // const tray = require('./tray');
-
-
-
-const app = electron.app;
 
 // require('electron-debug')();
 // require('electron-dl')();
@@ -51,7 +47,7 @@ function createMainWindow() {
   const maxWindowInteger = 2147483647; // Used to set max window width/height when toggling fullscreen
   const maxWidthValue = 850;
 
-  const win = new electron.BrowserWindow({
+  const win = new BrowserWindow({
     titleBarStyle: 'hidden-inset',
     width: 360,
     height: 360 / 0.618, 
@@ -94,7 +90,7 @@ function createMainWindow() {
 }
 
 app.on('ready', () => {
-  electron.Menu.setApplicationMenu(appMenu);
+  Menu.setApplicationMenu(appMenu);
   mainWindow = createMainWindow();
   // tray.create(mainWindow);
 
@@ -108,7 +104,7 @@ app.on('ready', () => {
 
   page.on('new-window', (e, url) => {
     e.preventDefault();
-    electron.shell.openExternal(url);
+    shell.openExternal(url);
   });
 });
 
@@ -118,6 +114,8 @@ app.on('activate', () => {
 
 app.on('before-quit', () => {
   isQuitting = true;
+
+  globalShortcut.unregisterAll()
 
   if (!mainWindow.isFullScreen()) {
     // config.set('lastWindowState', mainWindow.getBounds());

@@ -1,5 +1,19 @@
-const { app, Menu } = require('electron')
+const { app, Menu, BrowserWindow, shell } = require('electron')
 const appName = app.getName();
+const { mainWindow } = require('./index')
+
+const getMainWindow = () => {
+  return BrowserWindow.getAllWindows()[0]
+}
+
+const getMainWindowWebContents = () => {
+  const win = getMainWindow()
+  if (win) {
+    return win.webContents
+  } else {
+    return {}
+  }
+}
 
 const darwinTpl = [
   {
@@ -81,7 +95,37 @@ const darwinTpl = [
   },
   {
     label: 'View',
-    // submenu: viewSubmenu
+    submenu: [
+      {
+        label: 'Go Forward',
+        accelerator: 'CommandOrControl + Right',
+        click() {
+          getMainWindowWebContents().goForward()
+        }
+      },
+      {
+        label: 'Go Back',
+        accelerator: 'CommandOrControl + Left',
+        click() {
+          getMainWindowWebContents().goBack()
+        }
+      },
+      {
+        label: 'Home',
+        accelerator: 'CommandOrControl + r',
+        click() {
+          getMainWindowWebContents().loadURL('http://m.weibo.cn/beta')
+        }
+      },
+      {
+        label: 'Open External',
+        accelerator: 'CommandOrControl + o',
+        click() {
+          const url = getMainWindowWebContents().getURL()
+          shell.openExternal(url)
+        }
+      }
+    ]
   },
   {
     role: 'window',
