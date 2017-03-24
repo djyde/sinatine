@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Sina Weibo HTML5 client",
   "scripts": {
-    "app": "electron .",
+    "app": "ENV=dev electron .",
     "pack": "build --dir",
     "dist": "build"
   },

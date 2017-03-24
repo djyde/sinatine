@@ -16,3 +16,7 @@
   top: 20px !important;
   left: 4px !important;
 }
+
+.tips {
+  display: none !important;
+}

@@ -11,16 +11,11 @@ let isQuitting = false;
 
 // copy custom style and js to appData
 
-if (!fs.existsSync(path.join(app.getPath('appData'), app.getName(), 'custom.css'))) {
-  fs.createReadStream(path.join(__dirname, 'custom.css')).pipe(fs.createWriteStream(path.join(app.getPath('appData'), app.getName(), 'custom.css')))
-}
+fs.openSync(path.join(app.getPath('appData'), app.getName(), 'custom.css'), 'a')
+fs.openSync(path.join(app.getPath('appData'), app.getName(), 'custom.js'), 'a')
 
-if (!fs.existsSync(path.join(app.getPath('appData'), app.getName(), 'custom.js'))) {
-  fs.createReadStream(path.join(__dirname, 'custom.js')).pipe(fs.createWriteStream(path.join(app.getPath('appData'), app.getName(), 'custom.js')))
-}
-
+const jsPath = path.join(__dirname, 'sinatine.js')
 const cssPath = path.join(app.getPath('appData'), app.getName(), 'custom.css')
-const jsPath = path.join(app.getPath('appData'), app.getName(), 'custom.js')
 
 const appMenu = require('./menu');
 
@@ -106,7 +101,12 @@ app.on('ready', () => {
 
   const page = mainWindow.webContents;
 
+  if (process.env.ENV === 'dev') {
+    page.openDevTools({ mode: 'detach' })
+  }
+
   page.on('dom-ready', () => {
+    page.insertCSS(fs.readFileSync(path.join(__dirname, 'sinatine.css'), 'utf8'));
     page.insertCSS(fs.readFileSync(cssPath, 'utf8'));
     mainWindow.show();
   });

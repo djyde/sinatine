@@ -8,6 +8,12 @@ weibo HTML5 for macOS, inspired by [anatine](https://github.com/sindresorhus/ana
 
 Download from [release page](https://github.com/djyde/sinatine/releases)
 
+## Custom style and scripts
+
+You could set custom css and javascript:
+
+![image](https://cloud.githubusercontent.com/assets/914329/24286822/e2acb7ea-10b1-11e7-9283-f4175d4fc20f.png)
+
 ## Shortcut
 
 - `Command + Left`: Go back
