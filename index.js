@@ -3,9 +3,9 @@ const fs = require('fs');
 const electron = require('electron');
 const http = require('http')
 const axios = require('axios')
-// const appMenu = require('./menu');
+const config = require('./config')
+const appMenu = require('./menu');
 // const tray = require('./tray');
-// const config = require('./config');
 
 
 
@@ -94,7 +94,7 @@ function createMainWindow() {
 }
 
 app.on('ready', () => {
-  // electron.Menu.setApplicationMenu(appMenu);
+  electron.Menu.setApplicationMenu(appMenu);
   mainWindow = createMainWindow();
   // tray.create(mainWindow);
 
@@ -102,7 +102,7 @@ app.on('ready', () => {
 
   page.on('dom-ready', () => {
     page.insertCSS(fs.readFileSync(path.join(__dirname, 'browser.css'), 'utf8'));
-    patchRemoteStyle(page)
+    patchRemoteStyle(page, config.get('remoteStyleUrl'))
     mainWindow.show();
   });
 

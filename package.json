@@ -9,6 +9,7 @@
     "electron": "^1.6.2"
   },
   "dependencies": {
-    "axios": "^0.15.3"
+    "axios": "^0.15.3",
+    "electron-config": "^0.2.1"
   }
 }
