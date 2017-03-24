@@ -1,3 +1,8 @@
+.m-s-topbar {
+  -webkit-app-region: drag;
+  -webkit-user-select: none;
+}
+
 .m-topbar-l {
   padding-left: 62px;
   margin-top: -2px;

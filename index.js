@@ -14,20 +14,21 @@ const appMenu = require('./menu');
 let mainWindow;
 let isQuitting = false;
 
-const patchRemoteStyle = (page, url) => {
-  if (!url) {
-    page.insertCSS(fs.readFileSync(path.join(__dirname, 'custom.css'), 'utf8'));
-    return
-  }
-  axios.get(url)
-    .then(res => {
-      page.insertCSS(res.data)
-    })
-    .catch(e => {
-      // fetch failed, use local css
-      page.insertCSS(fs.readFileSync(path.join(__dirname, 'custom.css'), 'utf8'));
-    })
-}
+// TODO: not provide remote style yet
+// const patchRemoteStyle = (page, url) => {
+//   if (!url) {
+//     page.insertCSS(fs.readFileSync(path.join(__dirname, 'custom.css'), 'utf8'));
+//     return
+//   }
+//   axios.get(url)
+//     .then(res => {
+//       page.insertCSS(res.data)
+//     })
+//     .catch(e => {
+//       // fetch failed, use local css
+//       page.insertCSS(fs.readFileSync(path.join(__dirname, 'custom.css'), 'utf8'));
+//     })
+// }
 
 const isAlreadyRunning = app.makeSingleInstance(() => {
   if (mainWindow) {
@@ -44,16 +45,25 @@ if (isAlreadyRunning) {
 }
 
 function createMainWindow() {
-  const maxWindowInteger = 2147483647; // Used to set max window width/height when toggling fullscreen
-  const maxWidthValue = 850;
+  const lastWindowState = config.get('lastWindowState');
 
   const win = new BrowserWindow({
     titleBarStyle: 'hidden-inset',
+    x: lastWindowState.x,
+    y: lastWindowState.y,
+    width: lastWindowState.width,
+    height: lastWindowState.height,
     width: 360,
     height: 360 / 0.618, 
     minWidth: 300,
     maxWidth: 500,
-    maxHeight: 500 / 0.618
+    maxHeight: 500 / 0.618,
+    autoHideMenuBar: true,
+    webPreferences: {
+      preload: path.join(__dirname, 'custom.js'),
+      nodeIntegration: false,
+      plugins: true
+    }
   });
 
   if (process.platform === 'darwin') {
@@ -97,8 +107,7 @@ app.on('ready', () => {
   const page = mainWindow.webContents;
 
   page.on('dom-ready', () => {
-    page.insertCSS(fs.readFileSync(path.join(__dirname, 'browser.css'), 'utf8'));
-    patchRemoteStyle(page, config.get('remoteStyleUrl'))
+    page.insertCSS(fs.readFileSync(path.join(__dirname, 'custom.css'), 'utf8'));
     mainWindow.show();
   });
 
@@ -118,6 +127,6 @@ app.on('before-quit', () => {
   globalShortcut.unregisterAll()
 
   if (!mainWindow.isFullScreen()) {
-    // config.set('lastWindowState', mainWindow.getBounds());
+    config.set('lastWindowState', mainWindow.getBounds());
   }
 });

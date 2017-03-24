@@ -1,6 +1,6 @@
 const { app, Menu, BrowserWindow, shell } = require('electron')
 const appName = app.getName();
-const { mainWindow } = require('./index')
+const path = require('path')
 
 const getMainWindow = () => {
   return BrowserWindow.getAllWindows()[0]
@@ -26,16 +26,21 @@ const darwinTpl = [
         type: 'separator'
       },
       {
-        type: 'separator'
-      },
-      {
-        label: 'Log Out',
-        click() {
-          // sendAction('log-out');
-        }
-      },
-      {
-        type: 'separator'
+        label: 'Preferencies',
+        submenu: [
+          {
+            label: 'Edit CSS',
+            click() {
+              shell.openItem(path.join(app.getAppPath(), 'custom.css'))
+            }
+          },
+          {
+            label: 'Edit JS',
+            click() {
+              shell.openItem(path.join(app.getAppPath(), 'custom.js'))
+            }
+          }
+        ]
       },
       {
         role: 'services',
