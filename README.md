@@ -30,9 +30,9 @@ You could set custom css and javascript:
 ## Build
 
 ```bash
-$ yarn && cd app && yarn # install dev dependencies and application dependencies
+$ yarn # install dev dependencies and application dependencies
 
-$ cd .. && npm run app # to start the app
+$ npm run app # to start the app
 
 $ npm run dist # to build the app distribution
 ```

@@ -6,13 +6,13 @@
     "app": "ENV=dev electron app/",
     "test": "eslint app/",
     "pack": "build --dir",
-    "dist": "build"
+    "dist": "build",
+    "postinstall": "install-app-deps"
   },
   "author": {
     "name": "Randy",
     "email": "randypriv@gmail.com"
   },
-  "postinstall": "install-app-deps",
   "devDependencies": {
     "electron": "^1.6.2",
     "electron-builder": "^16.2.1",
