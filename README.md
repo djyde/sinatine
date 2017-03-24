@@ -14,6 +14,8 @@ You could set custom css and javascript:
 
 ![image](https://cloud.githubusercontent.com/assets/914329/24286822/e2acb7ea-10b1-11e7-9283-f4175d4fc20f.png)
 
+> JS file will be run in **render process**.
+
 ## Shortcut
 
 - `Command + Left`: Go back
