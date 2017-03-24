@@ -1,8 +1,6 @@
 const path = require('path');
 const fs = require('fs');
 const { app, BrowserWindow, Menu, shell, globalShortcut } = require('electron')
-const http = require('http')
-const axios = require('axios')
 const config = require('./config')
 // const tray = require('./tray');
 
@@ -18,6 +16,10 @@ const jsPath = path.join(__dirname, 'sinatine.js')
 const cssPath = path.join(app.getPath('appData'), app.getName(), 'custom.css')
 
 const appMenu = require('./menu');
+
+require('electron-context-menu')({
+  showInspectElement: true
+})
 
 // TODO: not provide remote style yet
 // const patchRemoteStyle = (page, url) => {
