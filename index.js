@@ -53,8 +53,6 @@ function createMainWindow() {
     y: lastWindowState.y,
     width: lastWindowState.width,
     height: lastWindowState.height,
-    width: 360,
-    height: 360 / 0.618, 
     minWidth: 300,
     maxWidth: 500,
     maxHeight: 500 / 0.618,
@@ -88,14 +86,6 @@ function createMainWindow() {
     e.preventDefault();
   });
 
-  win.on('enter-full-screen', () => {
-    win.setMaximumSize(maxWindowInteger, maxWindowInteger);
-  });
-
-  win.on('leave-full-screen', () => {
-    win.setMaximumSize(maxWidthValue, maxWindowInteger);
-  });
-
   return win;
 }
 
@@ -105,6 +95,8 @@ app.on('ready', () => {
   // tray.create(mainWindow);
 
   const page = mainWindow.webContents;
+  
+  page.openDevTools({ mode: 'detach' })
 
   page.on('dom-ready', () => {
     page.insertCSS(fs.readFileSync(path.join(__dirname, 'custom.css'), 'utf8'));
@@ -123,8 +115,6 @@ app.on('activate', () => {
 
 app.on('before-quit', () => {
   isQuitting = true;
-
-  globalShortcut.unregisterAll()
 
   if (!mainWindow.isFullScreen()) {
     config.set('lastWindowState', mainWindow.getBounds());

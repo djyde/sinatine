@@ -7,3 +7,12 @@
   padding-left: 62px;
   margin-top: -2px;
 }
+
+.nav-left {
+  padding-left: 64px;
+}
+
+.pswp__counter {
+  top: 20px !important;
+  left: 4px !important;
+}
