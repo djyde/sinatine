@@ -1,9 +1,13 @@
 const path = require('path');
 const fs = require('fs');
 const electron = require('electron');
+const http = require('http')
+const axios = require('axios')
 // const appMenu = require('./menu');
 // const tray = require('./tray');
 // const config = require('./config');
+
+
 
 const app = electron.app;
 
@@ -13,6 +17,21 @@ const app = electron.app;
 
 let mainWindow;
 let isQuitting = false;
+
+const patchRemoteStyle = (page, url) => {
+  if (!url) {
+    page.insertCSS(fs.readFileSync(path.join(__dirname, 'custom.css'), 'utf8'));
+    return
+  }
+  axios.get(url)
+    .then(res => {
+      page.insertCSS(res.data)
+    })
+    .catch(e => {
+      // fetch failed, use local css
+      page.insertCSS(fs.readFileSync(path.join(__dirname, 'custom.css'), 'utf8'));
+    })
+}
 
 const isAlreadyRunning = app.makeSingleInstance(() => {
   if (mainWindow) {
@@ -83,7 +102,7 @@ app.on('ready', () => {
 
   page.on('dom-ready', () => {
     page.insertCSS(fs.readFileSync(path.join(__dirname, 'browser.css'), 'utf8'));
-    // page.insertCSS(fs.readFileSync(path.join(__dirname, 'dark-mode.css'), 'utf8'));
+    patchRemoteStyle(page)
     mainWindow.show();
   });
 
