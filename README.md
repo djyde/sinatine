@@ -1,6 +1,10 @@
 # sinatine
 weibo HTML5 for macOS, inspired by [anatine](https://github.com/sindresorhus/anatine/)
 
+[![Github All Releases](https://img.shields.io/github/downloads/djyde/sinatine/total.svg)](https://github.com/djyde/sinatine)
+[![GitHub release](https://img.shields.io/github/release/djyde/sinatine.svg)](https://github.com/djyde/sinatine/releases)
+[![Circle](https://circleci.com/gh/djyde/sinatine.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/djyde/sinatine)
+
 <img src="https://cloud.githubusercontent.com/assets/914329/24285936/9a506360-10ad-11e7-9569-ddf7844192eb.png" width="360" height="581" style="display: inline-block" />
 <img src="https://cloud.githubusercontent.com/assets/914329/24285941/9db27afc-10ad-11e7-9cec-c42812fdbe7b.png" width="360" height="581" style="display: inline-block"/>
 
