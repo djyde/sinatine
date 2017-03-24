@@ -4,11 +4,25 @@ const { app, BrowserWindow, Menu, shell, globalShortcut } = require('electron')
 const http = require('http')
 const axios = require('axios')
 const config = require('./config')
-const appMenu = require('./menu');
 // const tray = require('./tray');
 
 let mainWindow;
 let isQuitting = false;
+
+// copy custom style and js to appData
+
+if (!fs.existsSync(path.join(app.getPath('appData'), app.getName(), 'custom.css'))) {
+  fs.createReadStream(path.join(__dirname, 'custom.css')).pipe(fs.createWriteStream(path.join(app.getPath('appData'), app.getName(), 'custom.css')))
+}
+
+if (!fs.existsSync(path.join(app.getPath('appData'), app.getName(), 'custom.js'))) {
+  fs.createReadStream(path.join(__dirname, 'custom.js')).pipe(fs.createWriteStream(path.join(app.getPath('appData'), app.getName(), 'custom.js')))
+}
+
+const cssPath = path.join(app.getPath('appData'), app.getName(), 'custom.css')
+const jsPath = path.join(app.getPath('appData'), app.getName(), 'custom.js')
+
+const appMenu = require('./menu');
 
 // TODO: not provide remote style yet
 // const patchRemoteStyle = (page, url) => {
@@ -54,7 +68,7 @@ function createMainWindow() {
     maxHeight: 500 / 0.618,
     autoHideMenuBar: true,
     webPreferences: {
-      preload: path.join(__dirname, 'custom.js'),
+      preload: jsPath,
       nodeIntegration: false,
       plugins: true
     }
@@ -93,7 +107,7 @@ app.on('ready', () => {
   const page = mainWindow.webContents;
 
   page.on('dom-ready', () => {
-    page.insertCSS(fs.readFileSync(path.join(__dirname, 'custom.css'), 'utf8'));
+    page.insertCSS(fs.readFileSync(cssPath, 'utf8'));
     mainWindow.show();
   });
 

@@ -32,13 +32,13 @@ const darwinTpl = [
           {
             label: 'Edit CSS',
             click() {
-              shell.showItemInFolder(path.join(__dirname, 'custom.css'))
+              shell.showItemInFolder(path.join(app.getPath('appData'), app.getName(), 'custom.css'))
             }
           },
           {
             label: 'Edit JS',
             click() {
-              shell.showItemInFolder(path.join(__dirname, 'custom.js'))
+              shell.showItemInFolder(path.join(app.getPath('appData'), app.getName(), 'custom.js'))
             }
           }
         ]
