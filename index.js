@@ -7,10 +7,6 @@ const config = require('./config')
 const appMenu = require('./menu');
 // const tray = require('./tray');
 
-// require('electron-debug')();
-// require('electron-dl')();
-// require('electron-context-menu')();
-
 let mainWindow;
 let isQuitting = false;
 
@@ -46,8 +42,8 @@ if (isAlreadyRunning) {
 
 function createMainWindow() {
   const lastWindowState = config.get('lastWindowState');
-
   const win = new BrowserWindow({
+    icon: path.join(__dirname, 'build', 'icon.ico'),
     titleBarStyle: 'hidden-inset',
     x: lastWindowState.x,
     y: lastWindowState.y,
@@ -95,8 +91,6 @@ app.on('ready', () => {
   // tray.create(mainWindow);
 
   const page = mainWindow.webContents;
-  
-  page.openDevTools({ mode: 'detach' })
 
   page.on('dom-ready', () => {
     page.insertCSS(fs.readFileSync(path.join(__dirname, 'custom.css'), 'utf8'));
