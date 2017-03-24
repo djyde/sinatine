@@ -23,6 +23,16 @@ You could set custom css and javascript:
 - `Command + r`: Go to homepage
 - `COmmand + o`: Open current page externally
 
+## Build
+
+```bash
+$ yarn
+
+$ npm run app # to start the app
+
+$ npm run dist # to build the app distribution
+```
+
 # License
 
 MIT License
