@@ -4,6 +4,7 @@
   "description": "Sina Weibo HTML5 client",
   "scripts": {
     "app": "ENV=dev electron app/",
+    "test": "eslint app/",
     "pack": "build --dir",
     "dist": "build"
   },
@@ -14,7 +15,11 @@
   "postinstall": "install-app-deps",
   "devDependencies": {
     "electron": "^1.6.2",
-    "electron-builder": "^16.2.1"
+    "electron-builder": "^16.2.1",
+    "eslint": "^3.18.0",
+    "eslint-config-standard": "^7.1.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.1.1"
   },
   "license": "MIT"
 }

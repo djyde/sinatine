@@ -1,11 +1,11 @@
-const path = require('path');
-const fs = require('fs');
-const { app, BrowserWindow, Menu, shell, globalShortcut } = require('electron')
+const path = require('path')
+const fs = require('fs')
+const { app, BrowserWindow, Menu, shell } = require('electron')
 const config = require('./config')
 // const tray = require('./tray');
 
-let mainWindow;
-let isQuitting = false;
+let mainWindow
+let isQuitting = false
 
 // copy custom style and js to appData
 
@@ -15,7 +15,7 @@ fs.openSync(path.join(app.getPath('appData'), app.getName(), 'custom.js'), 'a')
 const jsPath = path.join(__dirname, 'sinatine.js')
 const cssPath = path.join(app.getPath('appData'), app.getName(), 'custom.css')
 
-const appMenu = require('./menu');
+const appMenu = require('./menu')
 
 require('electron-context-menu')({
   showInspectElement: true
@@ -40,19 +40,19 @@ require('electron-context-menu')({
 const isAlreadyRunning = app.makeSingleInstance(() => {
   if (mainWindow) {
     if (mainWindow.isMinimized()) {
-      mainWindow.restore();
+      mainWindow.restore()
     }
 
-    mainWindow.show();
+    mainWindow.show()
   }
-});
+})
 
 if (isAlreadyRunning) {
-  app.quit();
+  app.quit()
 }
 
-function createMainWindow() {
-  const lastWindowState = config.get('lastWindowState');
+function createMainWindow () {
+  const lastWindowState = config.get('lastWindowState')
   const win = new BrowserWindow({
     icon: path.join(__dirname, 'build', 'icon.ico'),
     titleBarStyle: 'hidden-inset',
@@ -69,64 +69,64 @@ function createMainWindow() {
       nodeIntegration: false,
       plugins: true
     }
-  });
+  })
 
   if (process.platform === 'darwin') {
-    win.setSheetOffset(40);
+    win.setSheetOffset(40)
   }
 
-  win.loadURL('http://m.weibo.cn/beta');
+  win.loadURL('http://m.weibo.cn/beta')
 
   win.on('close', e => {
     if (!isQuitting) {
-      e.preventDefault();
+      e.preventDefault()
 
       if (process.platform === 'darwin') {
-        app.hide();
+        app.hide()
       } else {
-        win.hide();
+        win.hide()
       }
     }
-  });
+  })
 
   win.on('page-title-updated', e => {
-    e.preventDefault();
-  });
+    e.preventDefault()
+  })
 
-  return win;
+  return win
 }
 
 app.on('ready', () => {
-  Menu.setApplicationMenu(appMenu);
-  mainWindow = createMainWindow();
+  Menu.setApplicationMenu(appMenu)
+  mainWindow = createMainWindow()
   // tray.create(mainWindow);
 
-  const page = mainWindow.webContents;
+  const page = mainWindow.webContents
 
   if (process.env.ENV === 'dev') {
     page.openDevTools({ mode: 'detach' })
   }
 
   page.on('dom-ready', () => {
-    page.insertCSS(fs.readFileSync(path.join(__dirname, 'sinatine.css'), 'utf8'));
-    page.insertCSS(fs.readFileSync(cssPath, 'utf8'));
-    mainWindow.show();
-  });
+    page.insertCSS(fs.readFileSync(path.join(__dirname, 'sinatine.css'), 'utf8'))
+    page.insertCSS(fs.readFileSync(cssPath, 'utf8'))
+    mainWindow.show()
+  })
 
   page.on('new-window', (e, url) => {
-    e.preventDefault();
-    shell.openExternal(url);
-  });
-});
+    e.preventDefault()
+    shell.openExternal(url)
+  })
+})
 
 app.on('activate', () => {
-  mainWindow.show();
-});
+  mainWindow.show()
+})
 
 app.on('before-quit', () => {
-  isQuitting = true;
+  isQuitting = true
 
   if (!mainWindow.isFullScreen()) {
-    config.set('lastWindowState', mainWindow.getBounds());
+    config.set('lastWindowState', mainWindow.getBounds())
   }
-});
+})

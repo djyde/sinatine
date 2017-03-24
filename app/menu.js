@@ -1,5 +1,5 @@
 const { app, Menu, BrowserWindow, shell } = require('electron')
-const appName = app.getName();
+const appName = app.getName()
 const path = require('path')
 const os = require('os')
 
@@ -31,13 +31,13 @@ const darwinTpl = [
         submenu: [
           {
             label: 'Edit CSS',
-            click() {
+            click () {
               shell.showItemInFolder(path.join(app.getPath('appData'), app.getName(), 'custom.css'))
             }
           },
           {
             label: 'Edit JS',
-            click() {
+            click () {
               shell.showItemInFolder(path.join(app.getPath('appData'), app.getName(), 'custom.js'))
             }
           }
@@ -105,28 +105,28 @@ const darwinTpl = [
       {
         label: 'Go Forward',
         accelerator: 'CommandOrControl + Right',
-        click() {
+        click () {
           getMainWindowWebContents().goForward()
         }
       },
       {
         label: 'Go Back',
         accelerator: 'CommandOrControl + Left',
-        click() {
+        click () {
           getMainWindowWebContents().goBack()
         }
       },
       {
         label: 'Home',
         accelerator: 'CommandOrControl + r',
-        click() {
+        click () {
           getMainWindowWebContents().loadURL('http://m.weibo.cn/beta')
         }
       },
       {
         label: 'Open External',
         accelerator: 'CommandOrControl + o',
-        click() {
+        click () {
           const url = getMainWindowWebContents().getURL()
           shell.openExternal(url)
         }
@@ -158,25 +158,25 @@ const darwinTpl = [
     submenu: [
       {
         label: 'Source on Github',
-        click() {
+        click () {
           shell.openExternal('https://github.com/djyde/sinatine')
         }
       },
       {
         label: 'Report an issue...',
-        click() {
+        click () {
           const body = `
 <!-- Please succinctly describe your issue and steps to reproduce it. -->
 -
 ${app.getName()} ${app.getVersion()}
 Electron ${process.versions.electron}
-${process.platform} ${process.arch} ${os.release()}`;
+${process.platform} ${process.arch} ${os.release()}`
 
-          shell.openExternal(`https://github.com/djyde/sinatine/issues/new?body=${encodeURIComponent(body)}`);
+          shell.openExternal(`https://github.com/djyde/sinatine/issues/new?body=${encodeURIComponent(body)}`)
         }
       }
     ]
   }
-];
+]
 
 module.exports = Menu.buildFromTemplate(darwinTpl)
