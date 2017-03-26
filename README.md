@@ -37,6 +37,10 @@ $ npm run app # to start the app
 $ npm run dist # to build the app distribution
 ```
 
+## TODO
+
+- [ ] Update Checker
+
 # License
 
 MIT License
