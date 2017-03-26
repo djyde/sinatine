@@ -27,7 +27,7 @@ const darwinTpl = [
         type: 'separator'
       },
       {
-        label: 'Preferencies',
+        label: 'Preferences',
         submenu: [
           {
             label: 'Edit CSS',
