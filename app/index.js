@@ -61,8 +61,8 @@ function createMainWindow () {
     width: lastWindowState.width,
     height: lastWindowState.height,
     minWidth: 300,
-    maxWidth: 500,
-    maxHeight: 500 / 0.618,
+    maxWidth: 766,
+    maxHeight: 766 / 0.618,
     autoHideMenuBar: true,
     webPreferences: {
       preload: jsPath,
