@@ -104,14 +104,14 @@ const darwinTpl = [
     submenu: [
       {
         label: 'Home',
-        accelerator: 'CommandOrControl + h',
+        accelerator: 'CommandOrControl + e',
         click () {
           getMainWindowWebContents().loadURL('http://m.weibo.cn/beta')
         }
       },
       {
         label: 'Write Post',
-        accelerator: 'CommandOrControl + w',
+        accelerator: 'CommandOrControl + n',
         click () {
           getMainWindowWebContents().loadURL('http://m.weibo.cn/compose')
         }
