@@ -103,6 +103,27 @@ const darwinTpl = [
     label: 'View',
     submenu: [
       {
+        label: 'Home',
+        accelerator: 'CommandOrControl + h',
+        click () {
+          getMainWindowWebContents().loadURL('http://m.weibo.cn/beta')
+        }
+      },
+      {
+        label: 'Write Post',
+        accelerator: 'CommandOrControl + w',
+        click () {
+          getMainWindowWebContents().loadURL('http://m.weibo.cn/compose')
+        }
+      },
+      {
+        label: 'Reload',
+        accelerator: 'CommandOrControl + r',
+        click () {
+          getMainWindowWebContents().reload()
+        }
+      },
+      {
         label: 'Go Forward',
         accelerator: 'CommandOrControl + Right',
         click () {
@@ -114,13 +135,6 @@ const darwinTpl = [
         accelerator: 'CommandOrControl + Left',
         click () {
           getMainWindowWebContents().goBack()
-        }
-      },
-      {
-        label: 'Home',
-        accelerator: 'CommandOrControl + r',
-        click () {
-          getMainWindowWebContents().loadURL('http://m.weibo.cn/beta')
         }
       },
       {
